@@ -42,7 +42,3 @@ class Player:
 
     def move_west(self):
         self.move(dx=-1, dy=0)
-
-
-
-
