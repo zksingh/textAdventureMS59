@@ -28,45 +28,45 @@ class BoringTile(MapTile):
 
 class EnemyTile(MapTile):
     def __init__(self, x, y):
-        r = random.random #to randomly place enemies along the tiles
+        r = random.random() #to randomly place enemies along the tiles
         if r < 0.50:
-            self.enemies = enemies.GiantRobot() #place a giant robot every .50 
-            self.aliveText = "The ground beneath your feet rumbles."  
-            "You look up to a giant mechnical arm swing at you!" 
-            "You jump out of the way just in the nick of time." 
+            self.enemy = enemies.GiantRobot() #place a giant robot every .50 
+            self.aliveText = "The ground beneath your feet rumbles." \
+            "You look up to a giant mechnical arm swing at you!" \
+            "You jump out of the way just in the nick of time." \
             "But the giant robot has not stopped its pursuit"
             self.deadText = "Sparks fly from the broken wires of the dead giant robot strewn across the ground in pieces."
         
         elif r < 0.80:
-            self.enemies = enemies.StormTrooper() #place storm trooper 
-            self.aliveText = "You hear marching coming from the distance." 
+            self.enemy = enemies.StormTrooper() #place storm trooper 
+            self.aliveText = "You hear marching coming from the distance." \
             "You look up to see a familiar white suit and helmet...the Storm Troopers have arrived!"
             self.deadText = "Broken laser guns, white suits, and helmets are sprawled across the ground."
             "The Storm Troopers are dead, for now."
 
         elif r < 0.95:
-            self.enemies = enemies.TRexDino() #place TRex
-            self.aliveText = "A loud scream rolls through the Field." 
-            "The stomping gets louder and faster followed by another scream..."
+            self.enemy = enemies.TRexDino() #place TRex
+            self.aliveText = "A loud scream rolls through the Field." \
+            "The stomping gets louder and faster followed by another scream..."\
             "You look up to see a TRex running towards you in the distance!"
             self.deadText = "The blood of the TRex rolls down the ground and the dead TRex's body rots beneath you."
         
         else:
-            self.enemies = enemies.LaserDrone() #place Laser Drones
-            self.aliveText = "A hot laser burns the ground in front of your feet."
+            self.enemy = enemies.LaserDrone() #place Laser Drones
+            self.aliveText = "A hot laser burns the ground in front of your feet."\
             "Startled, you look up to see a Laser Drone coming right for you shooting at you!"
             self.deadText = "The punctured Laser Drone lies on the ground, broken and unresponsive."
         
         super().__init__(x,y)
 
     def introText(self): # set the text to the right one according to if they are dead or alive
-        text = self.aliveText if self.enemies.isAlive() else self.deadText
+        text = self.aliveText if self.enemy.isAlive() else self.deadText
         return text
         
     def modifyPlayer(self, player): #update the player hp accordingly as player fights enemy
-        if self.enemies.isAlive():
-            player.hp = player.hp - self.enemies.damage
-            print("Enemy does {} damage. You have {} HP remaining.".format(self.enemies.damage, player.hp))
+        if self.enemy.isAlive():
+            player.hp = player.hp - self.enemy.damage
+            print("Enemy does {} damage. You have {} HP remaining.".format(self.enemy.damage, player.hp))
 
 
 class VictoryTile(MapTile):
@@ -106,11 +106,13 @@ class FindMoneyTile(MapTile):
 #Taken from source code of Make your own python text adventure by Philip Johnson 2018...will probably remove later
 
 world_map = [
-    [None,VictoryTile(1,0),None],
-    [None,BoringTile(1,1),None],
-    [BoringTile(0,2),StartTile(1,2),BoringTile(2,2)],
-    [None,BoringTile(1,3),None]
+    [EnemyTile(0,0),VictoryTile(1,0),EnemyTile(2,0)],
+    [FindMoneyTile(0,1),EnemyTile(1,1),FindMoneyTile(2,1)],
+    [EnemyTile(0,2),StartTile(1,2),EnemyTile(2,2)],
+    [EnemyTile(0,3),FindMoneyTile(1,3),EnemyTile(2,3)]
 ]
+
+#start_tile_location = None
 
 def tile_at(x, y):
     if x < 0 or y < 0:

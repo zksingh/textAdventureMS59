@@ -1,12 +1,13 @@
 import items
+import world
 
 #check items instances
 
 class Player:
     def __init__(self):
         self.inventory = [items.Knife(), items.Bread()]
-        self.x = world.start_tile_location[0]
-        self.y = world.start_tile_location[1]
+        self.x = 1
+        self.y = 2
         self.hp = 100
         self.gold = 5
         self.victory = False
@@ -78,7 +79,7 @@ class Player:
         enemy = room.enemy
         print("You use {} against {}!".format(best_weapon.name, enemy.name))
         enemy.hp -= best_weapon.damage
-        if not enemy.is_alive():
+        if not enemy.isAlive():
             print("You killed {}!".format(enemy.name))
         else:
             print("{} HP is {}.".format(enemy.name, enemy.hp))

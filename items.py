@@ -9,21 +9,21 @@ class Knife(Weapon):
     def __init__(self):
         self.name = "Knife"
         self.description = "A sturdy blade working as a sturdy starting weapon."
-        self.damage = 2
+        self.damage = 5
         self.value = 5
 
 class LightSaber(Weapon): 
     def __init__(self):
         self.name = "Light Saber"
         self.description = "A light saber suitable for fighting against the Dark Side and using the Force."
-        self.damage = 5 
+        self.damage = 10 
         self.value = 7
 
 class LaserGun(Weapon): 
     def __init__(self):
         self.name = "Laser Gun"
         self.description = "A gun that shoots hot lasers, suitable for far away enemies and flying things."
-        self.damage = 3
+        self.damage = 8
         self.value = 4
 
 class Consumable:
